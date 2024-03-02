@@ -1,16 +1,27 @@
-# This is a sample Python script.
+import os
+import time
+from datetime import date, datetime
+# grab today's date
+today = date.today()
+print(f"Today is {today}")
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# grab today's entry time
+entry_hour = input("Enter work entry hour in HH:MM format please: ")
+leave_hour = input("Enter the hour you left the work in HH:MM format please: ")
+start_time = datetime.strptime(f"{entry_hour}:00", "%H:%M:%S")
+end_time = datetime.strptime(f"{leave_hour}:00", "%H:%M:%S")
 
+# get difference
+delta = end_time - start_time
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+sec = delta.total_seconds()
+print('difference in seconds:', sec)
 
+min = sec / 60
+print('difference in minutes:', min)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# get difference in hours
+hours = (min - (min % 60)) / 60
+print('difference in hours:', hours)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+print(f"Total time worked is {hours}:{min % 60}")
