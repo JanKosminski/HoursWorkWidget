@@ -2,6 +2,7 @@ import os
 from datetime import date, datetime
 import pandas as pd
 from table_files import *
+import openpyxl
 # grab today's date
 today = date.today()
 print(f"Today is {today}")
@@ -20,5 +21,12 @@ worked_hours = (worked_sec - (worked_sec % 3600)) / 3600
 worked_hours_float = worked_sec / 3660
 print(f"Total time worked is {worked_hours}:{(worked_sec % 3600)/60}")
 
-calendar = create_date_table(start='2024-01-01', end='2024-12-31')
-print(calendar)
+
+# initiate calendar if it doesn't exist
+
+if not(os.path.isfile("calendar.xlsx")):
+    calendar = create_date_table(start='2024-01-01', end='2024-12-31')
+    with pd.ExcelWriter('calendar.xlsx') as writer:
+        for i in range(1, 13):
+            page = calendar.loc[calendar['Month'] == i]
+            page.to_excel(writer, sheet_name=str(i))
