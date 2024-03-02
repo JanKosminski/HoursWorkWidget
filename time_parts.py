@@ -2,16 +2,12 @@ from datetime import date, datetime
 
 
 def grab_hour():
-    entry_hour = input("Enter work entry hour in HH:MM format please: ")
-    start_time = datetime.strptime(f"{entry_hour}:00", "%H:%M:%S")
-    return start_time
+    hour = input("Enter work entry hour in HH:MM format please: ")
+    stripped_hour = datetime.strptime(f"{hour}:00", "%H:%M:%S")
+    return stripped_hour
 
-def grab_endhour():
-    pass
+def time_diff():
 
-
-# grab today's entry time
-# TODO - add GUI
 entry = grab_hour()
 
 

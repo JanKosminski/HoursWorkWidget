@@ -24,3 +24,6 @@ def create_date_table(start='2000-01-01', end='2050-12-31'):
     dates.index.name = 'date_id'
     return dates
 
+
+def write_to_table(date):
+    pass
