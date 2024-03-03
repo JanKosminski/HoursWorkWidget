@@ -35,3 +35,5 @@ if not(os.path.isfile("calendar.xlsx")):
             page.to_excel(writer, sheet_name=str(j))
 else:
     calendar = pd.read_excel("calendar.xlsx", engine="openpyxl")
+
+print(calendar)
