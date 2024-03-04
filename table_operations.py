@@ -1,7 +1,6 @@
 import pandas as pd
 import calendar
 from datetime import datetime
-from math import isnan
 import numpy as np
 
 MONTHS = [calendar.month_name[i] for i in range(1, 13)]
@@ -45,10 +44,10 @@ def create_excel_file(dataframe):
             page.to_excel(writer, sheet_name=j)
 
 
-def grab_hour():
-    hour = input("Enter hour in HH:MM format please: ")
+def grab_hour(hour):
     stripped_hour = datetime.strptime(f"{hour}:00", "%H:%M:%S")
     return stripped_hour
+
 
 def sum_hours(day, dataframe):
     current_month = int(str(day)[5:7])
@@ -62,4 +61,4 @@ def sum_hours(day, dataframe):
         sum_m += int(i[3:])
     sum_h += int((sum_m - (sum_m % 60)) / 60)
     sum_m = sum_m % 60
-    print(sum_h,":", sum_m)
+    print(sum_h, ":", sum_m)
