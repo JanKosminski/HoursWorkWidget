@@ -22,7 +22,13 @@ def save():
     top.create_excel_file(calendar)
 
 
+def sum_gui():
+    tekst_godzin = top.sum_hours(today, calendar)
+    sumed_hours["text"] = f"Suma godzin: {tekst_godzin}"
+
+
 # initiate empty calendar if it doesn't exist, else read .xlsx and concat to single DF
+
 if not(os.path.isfile("calendar.xlsx")):
     calendar = top.create_date_table(start='2024-01-01', end='2024-12-31')
     top.create_excel_file(calendar)
@@ -32,8 +38,8 @@ else:
 # grab today's date and convert to ns64
 today = date.today()
 today_64 = pd.Timestamp(today).to_datetime64()
-top.sum_hours(today, calendar)
 
+#GUI
 window = tk.Tk()
 window.title("Godziny Pracy")
 window.config(padx=20, pady=20, bg=WHITE)
@@ -49,5 +55,12 @@ hour_input.insert(0, "00:00")
 save_button = tk.Button(text="Zapisz", bg=WHITE, command=save, width=38)
 save_button.grid(column=0, row=3, columnspan=2, sticky="w",)
 
-window.mainloop()
+# sumuj godziny
+save_button = tk.Button(text="Sumuj godziny", bg=WHITE, command=sum_gui, width=38)
+save_button.grid(column=0, row=4, columnspan=2, sticky="w")
 
+# godziny
+sumed_hours = tk.Label(text="Suma godzin: ", bg=WHITE)
+sumed_hours.grid(column=0, row=5, sticky="w")
+
+window.mainloop()
