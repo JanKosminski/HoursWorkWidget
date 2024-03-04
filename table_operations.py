@@ -11,7 +11,7 @@ def create_date_table(start='2000-01-01', end='2050-12-31'):
     end_ts = pd.to_datetime(end).date()
     # record timestamp is empty for now
     dates = pd.DataFrame(columns=['Entry Hour', 'Leave Hour', 'Time Spent Working'],
-                         index=pd.date_range(start_ts, end_ts), dtype='datetime')
+                         index=pd.date_range(start_ts, end_ts))
     dates.index.name = 'Date'
     days_names = {
         i: name
@@ -37,6 +37,7 @@ def write_hour(date, dataframe, hour):
         dataframe._set_value(index, 'Time Spent Working', diff)
 
 
+
 def create_excel_file(dataframe):
     with pd.ExcelWriter('calendar.xlsx') as writer:
         for i, j in enumerate(MONTHS, start=1):
@@ -51,14 +52,13 @@ def grab_hour(hour):
 
 def sum_hours(day, dataframe):
     current_month = int(str(day)[5:7])
-    print(current_month)
     total_hours = dataframe.loc[dataframe['Month'] == current_month, 'Time Spent Working'].dropna().values.tolist()
     sum_h = 0
     sum_m = 0
-    print(total_hours)
     for i in total_hours:
-        sum_h += int(i[:2])
-        sum_m += int(i[3:])
+        a, b = i.split(':')
+        sum_h += int(a)
+        sum_m += int(b)
     sum_h += int((sum_m - (sum_m % 60)) / 60)
     sum_m = sum_m % 60
-    print(sum_h, ":", sum_m)
+    return f"{sum_h}:{sum_m}"
