@@ -23,10 +23,18 @@ def save():
 
 
 def sum_gui():
-    tekst_godzin = top.sum_hours(today, calendar)
-    sumed_hours["text"] = f"Suma godzin: {tekst_godzin}"
+    tekst_godzin = top.sum_hours(month, calendar)
+    sumed_hours["text"] = f"Suma godzin: {tekst_godzin}  -- skopiowano do schowka"
+    window.clipboard_clear()
+    window.clipboard_append(tekst_godzin)
 
 
+def listbox_used(event):
+    # Gets current selection from listbox
+    global month
+    month = listbox.get(listbox.curselection())
+
+month = 0
 # initiate empty calendar if it doesn't exist, else read .xlsx and concat to single DF
 
 if not(os.path.isfile("calendar.xlsx")):
@@ -46,14 +54,14 @@ window.config(padx=20, pady=20, bg=WHITE)
 
 # Podaj godzinę
 desc = tk.Label(text="Podaj godzinę w formacie HH:MM", bg=WHITE)
-hour_input = tk.Entry(width=43)
-desc.grid(column=0, row=0, sticky="e")
-hour_input.grid(column=0, row=1, columnspan=2, sticky="w")
+hour_input = tk.Entry(width=28)
+desc.grid(column=0, row=0, sticky="w", columnspan=2)
+hour_input.grid(column=0, row=1, sticky="w")
 hour_input.insert(0, "00:00")
 
 # zapisz
-save_button = tk.Button(text="Zapisz", bg=WHITE, command=save, width=38)
-save_button.grid(column=0, row=3, columnspan=2, sticky="w",)
+save_button = tk.Button(text="Zapisz", bg=WHITE, command=save, width=10)
+save_button.grid(column=1, row=1, sticky="e",)
 
 # sumuj godziny
 save_button = tk.Button(text="Sumuj godziny", bg=WHITE, command=sum_gui, width=38)
@@ -61,6 +69,17 @@ save_button.grid(column=0, row=4, columnspan=2, sticky="w")
 
 # godziny
 sumed_hours = tk.Label(text="Suma godzin: ", bg=WHITE)
-sumed_hours.grid(column=0, row=5, sticky="w")
+sumed_hours.grid(column=0, row=5, columnspan=2, sticky="w")
+
+# opis listy
+desc2 = tk.Label(text="Wybierz numer miesiąca", bg=WHITE)
+desc2 .grid(column=0, row=6, columnspan=2, sticky="w")
+# lista
+listbox = tk.Listbox(height=12)
+month_numbers = [i for i in range(1,13)]
+for item in month_numbers:
+    listbox.insert(month_numbers.index(item), item)
+listbox.bind("<<ListboxSelect>>", listbox_used)
+listbox.grid(column=1, row=6, columnspan=2, sticky="e")
 
 window.mainloop()

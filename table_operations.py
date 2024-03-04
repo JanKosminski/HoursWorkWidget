@@ -51,8 +51,7 @@ def grab_hour(hour):
 
 
 def sum_hours(day, dataframe):
-    current_month = int(str(day)[5:7])
-    total_hours = dataframe.loc[dataframe['Month'] == current_month, 'Time Spent Working'].dropna().values.tolist()
+    total_hours = dataframe.loc[dataframe['Month'] == day, 'Time Spent Working'].dropna().values.tolist()
     sum_h = 0
     sum_m = 0
     for i in total_hours:
