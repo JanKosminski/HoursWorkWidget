@@ -23,21 +23,17 @@ def save():
 
 
 def sum_gui():
-    tekst_godzin = top.sum_hours(month, calendar)
+    a = variable.get()
+    tekst_godzin = top.sum_hours(a, calendar)
     sumed_hours["text"] = f"Suma godzin: {tekst_godzin}  -- skopiowano do schowka"
     window.clipboard_clear()
     window.clipboard_append(tekst_godzin)
 
 
-def listbox_used(event):
-    # Gets current selection from listbox
-    global month
-    month = listbox.get(listbox.curselection())
-
 month = 0
 # initiate empty calendar if it doesn't exist, else read .xlsx and concat to single DF
 
-if not(os.path.isfile("calendar.xlsx")):
+if not (os.path.isfile("calendar.xlsx")):
     calendar = top.create_date_table(start='2024-01-01', end='2024-12-31')
     top.create_excel_file(calendar)
 else:
@@ -47,7 +43,7 @@ else:
 today = date.today()
 today_64 = pd.Timestamp(today).to_datetime64()
 
-#GUI
+# GUI
 window = tk.Tk()
 window.title("Godziny Pracy")
 window.config(padx=20, pady=20, bg=WHITE)
@@ -75,11 +71,11 @@ sumed_hours.grid(column=0, row=5, columnspan=2, sticky="w")
 desc2 = tk.Label(text="Wybierz numer miesiąca", bg=WHITE)
 desc2 .grid(column=0, row=6, columnspan=2, sticky="w")
 # lista
-listbox = tk.Listbox(height=12)
-month_numbers = [i for i in range(1,13)]
-for item in month_numbers:
-    listbox.insert(month_numbers.index(item), item)
-listbox.bind("<<ListboxSelect>>", listbox_used)
-listbox.grid(column=1, row=6, columnspan=2, sticky="e")
+month_numbers = [i for i in range(1, 13)]
 
+variable = tk.StringVar(window)
+variable.set(month_numbers[0])
+# default value
+w = tk.OptionMenu(window, variable, *month_numbers)
+w.grid(column=2, row=6, columnspan=2, sticky="e")
 window.mainloop()
