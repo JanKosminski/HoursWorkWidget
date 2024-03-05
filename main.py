@@ -77,5 +77,5 @@ variable = tk.StringVar(window)
 variable.set(month_numbers[0])
 # default value
 w = tk.OptionMenu(window, variable, *month_numbers)
-w.grid(column=2, row=6, columnspan=2, sticky="e")
+w.grid(column=1, row=6, columnspan=2, sticky="e")
 window.mainloop()
