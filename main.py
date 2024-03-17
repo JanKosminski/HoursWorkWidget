@@ -36,6 +36,7 @@ if not (os.path.isfile("calendar.xlsx")):
     calendar = top.create_date_table(start='2024-01-01', end='2024-12-31')
     top.create_excel_file(calendar)
 else:
+    # read every page of xlsx and merge (concat) into single df
     calendar = pd.concat(pd.read_excel("calendar.xlsx", engine="openpyxl", sheet_name=None), ignore_index=True)
 
 # grab today's date and convert to ns64
