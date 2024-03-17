@@ -49,14 +49,16 @@ def grab_hour(hour):
     return stripped_hour
 
 
-def sum_hours(day, dataframe):
-    total_hours = dataframe.loc[dataframe['Month'] == day, 'Time Spent Working'].dropna().values.tolist()
+def sum_hours(month_number: int, dataframe):
+    total_hours = dataframe.loc[dataframe['Month'] == month_number, 'Time Spent Working'].dropna().values.tolist()
+    print(total_hours)
     sum_h = 0
     sum_m = 0
     for i in total_hours:
         a, b = i.split(':')
         sum_h += int(a)
         sum_m += int(b)
+
     sum_h += int((sum_m - (sum_m % 60)) / 60)
     sum_m = sum_m % 60
     return f"{sum_h}:{sum_m}"

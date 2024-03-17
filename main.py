@@ -20,8 +20,10 @@ def save():
 
 
 def sum_gui():
-    a = variable.get()
+    a = int(variable.get())
+    print(a)
     tekst_godzin = top.sum_hours(a, calendar)
+    print(tekst_godzin)
     sumed_hours["text"] = f"Suma godzin: {tekst_godzin}  -- skopiowano do schowka"
     window.clipboard_clear()
     window.clipboard_append(tekst_godzin)
