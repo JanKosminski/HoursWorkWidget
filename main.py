@@ -74,7 +74,7 @@ desc2 .grid(column=0, row=6, columnspan=2, sticky="w")
 month_numbers = [i for i in range(1, 13)]
 
 variable = tk.StringVar(window)
-variable.set(month_numbers[0])
+variable.set(str(month_numbers[0]))
 # default value
 w = tk.OptionMenu(window, variable, *month_numbers)
 w.grid(column=1, row=6, columnspan=2, sticky="e")
