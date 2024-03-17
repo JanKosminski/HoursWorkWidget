@@ -44,30 +44,30 @@ today_64 = pd.Timestamp(today).to_datetime64()
 
 # GUI
 window = tk.Tk()
-window.title("Godziny Pracy")
+window.title("Work Hours")
 window.config(padx=20, pady=20, bg=WHITE)
 
 # Podaj godzinę
-desc = tk.Label(text="Podaj godzinę w formacie HH:MM", bg=WHITE)
+desc = tk.Label(text="Input a hour in HH:MM format", bg=WHITE)
 hour_input = tk.Entry(width=28)
 desc.grid(column=0, row=0, sticky="w", columnspan=2)
 hour_input.grid(column=0, row=1, sticky="w")
 hour_input.insert(0, "00:00")
 
 # zapisz
-save_button = tk.Button(text="Zapisz", bg=WHITE, command=save, width=10)
+save_button = tk.Button(text="Save", bg=WHITE, command=save, width=10)
 save_button.grid(column=1, row=1, sticky="e",)
 
 # sumuj godziny
-save_button = tk.Button(text="Sumuj godziny", bg=WHITE, command=sum_gui, width=38)
+save_button = tk.Button(text="Sum the hours", bg=WHITE, command=sum_gui, width=38)
 save_button.grid(column=0, row=4, columnspan=2, sticky="w")
 
 # godziny
-sumed_hours = tk.Label(text="Suma godzin: ", bg=WHITE)
+sumed_hours = tk.Label(text="Sum of hours: ", bg=WHITE)
 sumed_hours.grid(column=0, row=5, columnspan=2, sticky="w")
 
 # opis listy
-desc2 = tk.Label(text="Wybierz numer miesiąca", bg=WHITE)
+desc2 = tk.Label(text="Pick a month you want to sum hours for", bg=WHITE)
 desc2 .grid(column=0, row=6, columnspan=2, sticky="w")
 # lista
 month_numbers = [i for i in range(1, 13)]
